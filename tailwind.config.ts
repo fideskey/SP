@@ -25,33 +25,31 @@ const config: Config = {
       current: "currentColor",
       transparent: "transparent",
       white: "#FFFFFF",
-      body: "#4A5568", // Gris medio para textos secundarios
+      body: "#4A5568",
       
       // PALETA PRINCIPAL FIDESKEY
       primary: {
-        DEFAULT: "#1E3A5F", // Azul profundo (confianza, lujo)
+        DEFAULT: "#1E3A5F",
         light: "#2D4A7A",
         dark: "#152C4A",
       },
       secondary: {
-        DEFAULT: "#C6A43F", // Dorado suave (celebración, llave)
+        DEFAULT: "#C6A43F",
         light: "#D6B85A",
         dark: "#A8892E",
       },
       accent: {
-        DEFAULT: "#FF6B6B", // Coral (toque festivo controlado)
+        DEFAULT: "#FF6B6B",
         light: "#FF9999",
         dark: "#E55555",
       },
       
-      // FONDOS
       background: {
-        DEFAULT: "#F5F7FA", // Fondo general gris muy claro
+        DEFAULT: "#F5F7FA",
         card: "#FFFFFF",
         dark: "#E2E8F0",
       },
       
-      // ESCALA DE GRISES (moderna)
       gray: {
         DEFAULT: "#F3F5F6",
         1: "#F9FAFB",
@@ -72,7 +70,6 @@ const config: Config = {
         5: "#BBBEC9",
       },
       
-      // COLORES SECUNDARIOS (con moderación)
       blue: {
         DEFAULT: "#3C50E0",
         dark: "#1C3FB7",
