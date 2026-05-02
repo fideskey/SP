@@ -7,13 +7,17 @@ type InitialState = {
 
 const initialState = {
   value: {
+    id: 0,
+    idFideskey: "",
     title: "",
-    reviews: 0,
     price: 0,
     discountedPrice: 0,
-    img: "",
-    id: 0,
-    images: [],
+    reviews: 0,
+    categoria: "",
+    subcategoria: "",
+    descripcion: "",
+    dimensiones: "",
+    colores: [],
     imgs: { thumbnails: [], previews: [] },
   } as Product,
 } as InitialState;
@@ -29,7 +33,6 @@ export const quickView = createSlice({
         },
       };
     },
-
     resetQuickView: () => {
       return {
         value: initialState.value,
