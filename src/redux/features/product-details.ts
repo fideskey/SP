@@ -7,13 +7,17 @@ type InitialState = {
 
 const initialState = {
   value: {
+    id: 0,
+    idFideskey: "",
     title: "",
-    reviews: 0,
     price: 0,
     discountedPrice: 0,
-    img: "",
-    images: [],
-    id: 0,
+    reviews: 0,
+    categoria: "",
+    subcategoria: "",
+    descripcion: "",
+    dimensiones: "",
+    colores: [],
     imgs: { thumbnails: [], previews: [] },
   },
 } as InitialState;
