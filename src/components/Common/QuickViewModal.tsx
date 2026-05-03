@@ -12,7 +12,8 @@ const QuickViewModal = () => {
   const dispatch = useDispatch<AppDispatch>();
   
   // Obtenemos el producto seleccionado desde el estado global[cite: 1]
-  const product = useSelector((state: RootState) => state.quickView.value);
+  // Cambiamos state.quickView por state.quickViewReducer
+const product = useSelector((state: RootState) => state.quickViewReducer.value);
 
   const handleClose = () => {
     dispatch(resetQuickView()); // Limpiamos Redux para que no queden datos viejos[cite: 1]
