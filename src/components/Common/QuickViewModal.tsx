@@ -46,7 +46,10 @@ const product = useSelector((state: RootState) => state.quickViewReducer.value);
             <h2 className="text-2xl font-bold mb-2 text-dark">{product.title}</h2>
             <p className="text-xl font-semibold text-blue mb-4">${product.discountedPrice}</p>
             <p className="text-dark-4 text-sm mb-6 line-clamp-4">
-              {product.description}
+           // CAMBIO: de product.description a product.descripcion
+<p className="text-dark-4 text-sm mb-6 line-clamp-4">
+  {product.descripcion}
+</p>
             </p>
             <button 
               onClick={handleClose}
