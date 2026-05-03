@@ -1,33 +1,25 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Product } from "@/types/product";
 
-interface QuickViewState {
-  value: Product | null;
-  isOpen: boolean;
-}
+type InitialState = { value: Product };
 
-const initialState: QuickViewState = {
-  value: null,
-  isOpen: false,
-};
+const initialState = {
+  value: {
+    id: 0, idFideskey: "", title: "", price: 0, discountedPrice: 0,
+    reviews: 0, categoria: "", subcategoria: "", descripcion: "",
+    dimensiones: "", colores: [],
+    imgs: { thumbnails: [], previews: [] },
+  } as Product,
+} as InitialState;
 
-export const quickViewSlice = createSlice({
+export const quickView = createSlice({
   name: "quickView",
   initialState,
   reducers: {
-    // Esta es la función para abrir y cargar datos
-    openQuickView: (state, action: PayloadAction<Product>) => {
-      state.value = action.payload;
-      state.isOpen = true;
-    },
-    // ESTA ES LA QUE FALTA: Para limpiar y cerrar
-    resetQuickView: (state) => {
-      state.value = null;
-      state.isOpen = false;
-    },
+    updateQuickView: (_, action) => ({ value: { ...action.payload } }),
+    resetQuickView: () => ({ value: initialState.value }),
   },
 });
 
-// CRUCIAL: Exportar ambas aquí
-export const { openQuickView, resetQuickView } = quickViewSlice.actions;
-export default quickViewSlice.reducer;
+export const { updateQuickView, resetQuickView } = quickView.actions;
+export default quickView.reducer;

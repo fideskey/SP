@@ -1,62 +1,55 @@
 "use client";
 import React from "react";
 import { Product } from "@/types/product";
+import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-// CAMBIO CLAVE: Cambiamos updateQuickView por openQuickView[cite: 1, 2]
-import { openQuickView } from "@/redux/features/quickView-slice";
+import { updateQuickView } from "@/redux/features/quickView-slice";
 import { addItemToCart } from "@/redux/features/cart-slice";
+import { addItemToWishlist } from "@/redux/features/wishlist-slice";
+import { updateproductDetails } from "@/redux/features/product-details";
 import Image from "next/image";
 import Link from "next/link";
-import { useModalContext } from "@/app/context/QuickViewModalContext";
 
 const SingleItem = ({ item }: { item: Product }) => {
   const { openModal } = useModalContext();
   const dispatch = useDispatch<AppDispatch>();
 
-  // CAMBIO CLAVE: Usamos la función correcta que definimos en el slice[cite: 1]
-  const handleQuickViewUpdate = () => {
-    dispatch(openQuickView({ ...item }));
-  };
+  const handleQuickViewUpdate = () => dispatch(updateQuickView({ ...item }));
+  const handleAddToCart = () => dispatch(addItemToCart({ ...item, quantity: 1 }));
+  const handleItemToWishList = () => dispatch(addItemToWishlist({ ...item, status: "available", quantity: 1 }));
+  const handleProductDetails = () => dispatch(updateproductDetails({ ...item }));
 
-  const handleAddToCart = () => {
-    dispatch(addItemToCart({ ...item, quantity: 1 }));
-  };
+  const imgSrc = item.imgs?.previews?.[0] || item.imgs?.thumbnails?.[0] || "";
+  const precio = item.price > 0 ? `R$ ${item.price.toFixed(2).replace(".", ",")}` : "Consultá el precio";
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="relative w-20 h-20 rounded-lg bg-white overflow-hidden shadow-1 flex-shrink-0">
-        <Image 
-          src={item.imgs.previews[0]} 
-          alt={item.title} 
-          fill 
-          className="object-contain p-2" 
-        />
-      </div>
-      <div className="flex-grow">
-        <h4 className="font-medium text-dark hover:text-blue mb-1">
-          <Link href={`/shop/${item.id}`}>{item.title}</Link>
-        </h4>
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-dark font-medium">${item.discountedPrice}</span>
-          <span className="text-dark-4 line-through text-sm">${item.price}</span>
+    <div className="group">
+      <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] min-h-[403px]">
+        <div className="text-center px-4 py-7.5">
+          <div className="flex items-center justify-center gap-2.5 mb-2">
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => <Image key={i} src="/images/icons/icon-star.svg" alt="★" width={14} height={14} />)}
+            </div>
+            <p className="text-custom-sm">({item.reviews})</p>
+          </div>
+          <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5 line-clamp-2" onClick={() => handleProductDetails()}>
+            <Link href="/shop-details">{item.title}</Link>
+          </h3>
+          <span className="font-medium text-lg text-dark">{precio}</span>
         </div>
-        <div className="flex gap-3">
-          <button 
-            onClick={() => { 
-              openModal(); 
-              handleQuickViewUpdate(); 
-            }} 
-            className="text-xs text-blue hover:underline"
-          >
-            Vista rápida
-          </button>
-          <button 
-            onClick={handleAddToCart} 
-            className="text-xs text-blue hover:underline"
-          >
-            Comprar
-          </button>
+        {imgSrc && (
+          <div className="flex justify-center items-center">
+            <Image src={imgSrc} alt={item.title} width={280} height={280} className="object-contain" />
+          </div>
+        )}
+        <div className="absolute right-0 bottom-0 translate-x-full flex flex-col gap-2 p-5.5 ease-linear duration-300 group-hover:translate-x-0">
+          <button onClick={() => { handleQuickViewUpdate(); openModal(); }} aria-label="Vista rápida"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue">👁</button>
+          <button onClick={() => handleAddToCart()} aria-label="Agregar al carrito"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue">🛒</button>
+          <button onClick={() => handleItemToWishList()} aria-label="Favoritos"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue">♡</button>
         </div>
       </div>
     </div>

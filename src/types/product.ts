@@ -1,6 +1,6 @@
 export type Product = {
   id: number;
-  idFideskey: string;
+  idFideskey?: string;
   title: string;
   price: number;
   discountedPrice: number;

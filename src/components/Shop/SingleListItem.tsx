@@ -3,8 +3,7 @@ import React from "react";
 
 import { Product } from "@/types/product";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
-// Corregido: Se importa openQuickView para coincidir con el slice de Redux[cite: 1, 2]
-import { openQuickView } from "@/redux/features/quickView-slice";
+import { updateQuickView } from "@/redux/features/quickView-slice";
 import { addItemToCart } from "@/redux/features/cart-slice";
 import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { useDispatch } from "react-redux";
@@ -16,11 +15,12 @@ const SingleListItem = ({ item }: { item: Product }) => {
   const { openModal } = useModalContext();
   const dispatch = useDispatch<AppDispatch>();
 
-  // Corregido: Ahora utiliza la función openQuickView definida en el slice[cite: 1]
+  // update the QuickView state
   const handleQuickViewUpdate = () => {
-    dispatch(openQuickView({ ...item }));
+    dispatch(updateQuickView({ ...item }));
   };
 
+  // add to cart
   const handleAddToCart = () => {
     dispatch(
       addItemToCart({
@@ -44,7 +44,7 @@ const SingleListItem = ({ item }: { item: Product }) => {
     <div className="group rounded-lg bg-white shadow-1">
       <div className="flex">
         <div className="shadow-list relative overflow-hidden flex items-center justify-center max-w-[270px] w-full sm:min-h-[270px] p-4">
-          <Image src={item.imgs.previews[0]} alt={item.title} width={250} height={250} />
+          <Image src={item.imgs.previews[0]} alt="" width={250} height={250} />
 
           <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
             <button
@@ -52,7 +52,7 @@ const SingleListItem = ({ item }: { item: Product }) => {
                 openModal();
                 handleQuickViewUpdate();
               }}
-              aria-label="botón para vista rápida"
+              aria-label="button for quick view"
               className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
             >
               <svg
@@ -82,12 +82,12 @@ const SingleListItem = ({ item }: { item: Product }) => {
               onClick={() => handleAddToCart()}
               className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
             >
-              Añadir al carrito
+              Add to cart
             </button>
 
             <button
               onClick={() => handleItemToWishList()}
-              aria-label="botón para favoritos"
+              aria-label="button for favorite select"
               className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
             >
               <svg
@@ -112,8 +112,7 @@ const SingleListItem = ({ item }: { item: Product }) => {
         <div className="w-full flex flex-col gap-5 sm:flex-row sm:items-center justify-center sm:justify-between py-5 px-4 sm:px-7.5 lg:pl-11 lg:pr-12">
           <div>
             <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
-              {/* Ajuste: Mantenemos el link pero evitamos páginas de detalle vacías */}
-              <Link href="#"> {item.title} </Link>
+              <Link href="/shop-details"> {item.title} </Link>
             </h3>
 
             <span className="flex items-center gap-2 font-medium text-lg">
@@ -124,16 +123,38 @@ const SingleListItem = ({ item }: { item: Product }) => {
 
           <div className="flex items-center gap-2.5 mb-2">
             <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Image
-                  key={i}
-                  src="/images/icons/icon-star.svg"
-                  alt="star icon"
-                  width={15}
-                  height={15}
-                />
-              ))}
+              <Image
+                src="/images/icons/icon-star.svg"
+                alt="star icon"
+                width={15}
+                height={15}
+              />
+              <Image
+                src="/images/icons/icon-star.svg"
+                alt="star icon"
+                width={15}
+                height={15}
+              />
+              <Image
+                src="/images/icons/icon-star.svg"
+                alt="star icon"
+                width={15}
+                height={15}
+              />
+              <Image
+                src="/images/icons/icon-star.svg"
+                alt="star icon"
+                width={15}
+                height={15}
+              />
+              <Image
+                src="/images/icons/icon-star.svg"
+                alt="star icon"
+                width={15}
+                height={15}
+              />
             </div>
+
             <p className="text-custom-sm">({item.reviews})</p>
           </div>
         </div>

@@ -9,7 +9,7 @@ const initialState = {
     reviews: 0, categoria: "", subcategoria: "", descripcion: "",
     dimensiones: "", colores: [],
     imgs: { thumbnails: [], previews: [] },
-  },
+  } as Product,
 } as InitialState;
 
 export const productDetails = createSlice({
