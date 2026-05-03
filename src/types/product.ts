@@ -1,22 +1,15 @@
 export type Product = {
-  // Campos básicos
   id: number;
-  idFideskey: string;        // FK-DEC-00001
+  idFideskey: string;
   title: string;
   price: number;
   discountedPrice: number;
   reviews: number;
-
-  // Categorización
-  categoria?: string;        // Decoración
-  subcategoria?: string;     // Infantil
-
-  // Descripción y detalles
+  categoria?: string;
+  subcategoria?: string;
   descripcion?: string;
   dimensiones?: string;
-  colores?: string[];        // ["rojo", "azul", "verde"]
-
-  // Imágenes
+  colores?: string[];
   imgs?: {
     thumbnails: string[];
     previews: string[];
