@@ -1,32 +1,33 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Product } from "@/types/product";
 
-// Definimos qué datos de cotillón guardará el modal al abrirse
 interface QuickViewState {
-  productId: string | null;
+  value: Product | null;
   isOpen: boolean;
-  productData: any; // Aquí vendrán las dimensiones, SKU y fotos limpias
 }
 
 const initialState: QuickViewState = {
-  productId: null,
+  value: null,
   isOpen: false,
-  productData: null,
 };
 
 export const quickViewSlice = createSlice({
-  name: 'quickView',
+  name: "quickView",
   initialState,
   reducers: {
-    openQuickView: (state, action: PayloadAction<any>) => {
+    // Esta es la función para abrir y cargar datos
+    openQuickView: (state, action: PayloadAction<Product>) => {
+      state.value = action.payload;
       state.isOpen = true;
-      state.productData = action.payload; // Cargamos la info del producto
     },
-    closeQuickView: (state) => {
+    // ESTA ES LA QUE FALTA: Para limpiar y cerrar
+    resetQuickView: (state) => {
+      state.value = null;
       state.isOpen = false;
-      state.productData = null;
     },
   },
 });
 
-export const { openQuickView, closeQuickView } = quickViewSlice.actions;
+// CRUCIAL: Exportar ambas aquí
+export const { openQuickView, resetQuickView } = quickViewSlice.actions;
 export default quickViewSlice.reducer;
