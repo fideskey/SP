@@ -1,4 +1,11 @@
-import { Menu } from "@/types/menu";
+// Definimos el tipo aquí mismo para evitar el error de importación
+export type Menu = {
+  id: number;
+  title: string;
+  path?: string;
+  newTab: boolean;
+  submenu?: Menu[];
+};
 
 const menuData: Menu[] = [
   {
