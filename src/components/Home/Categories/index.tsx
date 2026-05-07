@@ -1,52 +1,21 @@
 "use client";
 import React, { useRef } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const categorias = [
-  {
-    id: 1, title: "Globos", href: "/shop-with-sidebar",
-    emoji: "🎈",
-    color: "from-pink-100 to-pink-200",
-  },
-  {
-    id: 2, title: "Decoración", href: "/shop-with-sidebar",
-    emoji: "🎀",
-    color: "from-purple-100 to-purple-200",
-  },
-  {
-    id: 3, title: "Fiestas Temáticas", href: "/shop-with-sidebar",
-    emoji: "🎭",
-    color: "from-blue-100 to-blue-200",
-  },
-  {
-    id: 4, title: "Recuerdos", href: "/shop-with-sidebar",
-    emoji: "🎁",
-    color: "from-yellow-100 to-yellow-200",
-  },
-  {
-    id: 5, title: "Carnaval y Disfraces", href: "/shop-with-sidebar",
-    emoji: "🎪",
-    color: "from-orange-100 to-orange-200",
-  },
-  {
-    id: 6, title: "Cotillón", href: "/shop-with-sidebar",
-    emoji: "🎉",
-    color: "from-green-100 to-green-200",
-  },
-  {
-    id: 7, title: "Vajilla Descartable", href: "/shop-with-sidebar",
-    emoji: "🥂",
-    color: "from-cyan-100 to-cyan-200",
-  },
-  {
-    id: 8, title: "Velas", href: "/shop-with-sidebar",
-    emoji: "🕯️",
-    color: "from-red-100 to-red-200",
-  },
+  { id: 1, title: "Globos",               emoji: "🎈", color: "from-pink-100 to-pink-200" },
+  { id: 2, title: "Decoración",           emoji: "🎀", color: "from-purple-100 to-purple-200" },
+  { id: 3, title: "Fiestas Temáticas",    emoji: "🎭", color: "from-blue-100 to-blue-200" },
+  { id: 4, title: "Recuerdos",            emoji: "🎁", color: "from-yellow-100 to-yellow-200" },
+  { id: 5, title: "Carnaval y Disfraces", emoji: "🎪", color: "from-orange-100 to-orange-200" },
+  { id: 6, title: "Cotillón",             emoji: "🎉", color: "from-green-100 to-green-200" },
+  { id: 7, title: "Vajilla Descartable",  emoji: "🥂", color: "from-cyan-100 to-cyan-200" },
+  { id: 8, title: "Velas",               emoji: "🕯️", color: "from-red-100 to-red-200" },
 ];
 
 const Categories = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const scroll = (dir: "left" | "right") => {
     if (sliderRef.current) {
@@ -54,11 +23,13 @@ const Categories = () => {
     }
   };
 
+  const handleClick = (titulo: string) => {
+    router.push(`/shop-with-sidebar?categoria=${encodeURIComponent(titulo)}`);
+  };
+
   return (
     <section className="overflow-hidden pt-15">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-
-        {/* Título */}
         <div className="mb-7 flex items-center justify-between">
           <div>
             <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
@@ -68,37 +39,26 @@ const Categories = () => {
               </svg>
               Categorías
             </span>
-            <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-              Explorá por categoría
-            </h2>
+            <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">Explorá por categoría</h2>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => scroll("left")}
-              className="w-9 h-9 rounded-full border border-gray-3 bg-white flex items-center justify-center hover:bg-blue hover:border-blue hover:text-white transition-colors">
-              ‹
-            </button>
-            <button onClick={() => scroll("right")}
-              className="w-9 h-9 rounded-full border border-gray-3 bg-white flex items-center justify-center hover:bg-blue hover:border-blue hover:text-white transition-colors">
-              ›
-            </button>
+            <button onClick={() => scroll("left")} className="w-9 h-9 rounded-full border border-gray-3 bg-white flex items-center justify-center hover:bg-blue hover:border-blue hover:text-white transition-colors">‹</button>
+            <button onClick={() => scroll("right")} className="w-9 h-9 rounded-full border border-gray-3 bg-white flex items-center justify-center hover:bg-blue hover:border-blue hover:text-white transition-colors">›</button>
           </div>
         </div>
-
-        {/* Slider */}
-        <div ref={sliderRef} className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth">
+        <div ref={sliderRef} className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide scroll-smooth">
           {categorias.map((cat) => (
-            <Link key={cat.id} href={cat.href}
+            <button key={cat.id} onClick={() => handleClick(cat.title)}
               className="flex-shrink-0 flex flex-col items-center gap-3 group cursor-pointer">
-              <div className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${cat.color} flex items-center justify-center text-5xl shadow-sm group-hover:shadow-md transition-shadow`}>
+              <div className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br ${cat.color} flex items-center justify-center text-5xl shadow-sm group-hover:shadow-md transition-all group-hover:scale-105`}>
                 {cat.emoji}
               </div>
               <p className="text-sm font-medium text-dark group-hover:text-blue transition-colors text-center max-w-[100px]">
                 {cat.title}
               </p>
-            </Link>
+            </button>
           ))}
         </div>
-
       </div>
     </section>
   );
