@@ -45,10 +45,10 @@ const Checkout = () => {
     try {
       const emailjs = await import("@emailjs/browser");
       await emailjs.send(
-        "YOUR_SERVICE_ID",   // ← Reemplazá con tu Service ID de EmailJS
-        "YOUR_TEMPLATE_ID",  // ← Reemplazá con tu Template ID de EmailJS
+        "service_n4oo1t6",   // ← Reemplazá con tu Service ID de EmailJS
+        "rz7br1j",  // ← Reemplazá con tu Template ID de EmailJS
         {
-          to_email: "contacto@fideskey.com",
+          to_email: "fideskey@outlook.com",
           from_name: `${form.nombre} ${form.apellido}`,
           from_email: form.email,
           telefono: form.telefono,
@@ -60,7 +60,7 @@ const Checkout = () => {
           total: totalTexto,
           notas: form.notas || "—",
         },
-        "YOUR_PUBLIC_KEY"   // ← Reemplazá con tu Public Key de EmailJS
+        "E3W2Avz2xryjQ6Vrd"   // ← Reemplazá con tu Public Key de EmailJS
       );
       setEnviado(true);
     } catch (err) {
