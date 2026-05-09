@@ -7,7 +7,7 @@ const initialState = {
   value: {
     id: 0, idFideskey: "", title: "", price: 0, discountedPrice: 0,
     reviews: 0, categoria: "", subcategoria: "", descripcion: "",
-    dimensiones: "", colores: [],
+    dimensiones: "", colores: "",
     imgs: { thumbnails: [], previews: [] },
   } as Product,
 } as InitialState;

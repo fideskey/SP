@@ -9,7 +9,7 @@ export type Product = {
   subcategoria?: string;
   descripcion?: string;
   dimensiones?: string;
-  colores?: string[];
+  colores?: string;
   imgs?: {
     thumbnails: string[];
     previews: string[];
